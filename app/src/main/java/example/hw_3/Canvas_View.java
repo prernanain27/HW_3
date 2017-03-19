@@ -76,6 +76,26 @@ public class Canvas_View extends View {
         return true;
     }
 
+    public boolean onTouchEvent(MotionEvent motion,Boolean isRestore){
+
+        float touchX = motion.getX();
+        float touchY = motion.getY();
+
+        switch (motion.getAction()){
+            case MotionEvent.ACTION_DOWN :
+                path.moveTo(touchX,touchY);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                path.lineTo(touchX,touchY);
+                break;
+            case MotionEvent.ACTION_UP :
+                break;
+        }
+        invalidate();
+
+        return true;
+    }
+
 
     @Override
     public Parcelable onSaveInstanceState()
@@ -100,10 +120,16 @@ public class Canvas_View extends View {
                 eventList = new ArrayList<MotionEvent>(100);
             }
             for (MotionEvent event : eventList) {
-                onTouchEvent(event);
+                onTouchEvent(event,true);
             }
             return;
         }
         super.onRestoreInstanceState(state);
+    }
+
+    public void onClear(){
+        path.reset();
+        invalidate();
+
     }
 }

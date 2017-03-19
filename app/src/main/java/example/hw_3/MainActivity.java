@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
     private SensorManager sm;
-    private View view;
+    private Canvas_View view;
     private long lastupdate;
 
 
@@ -28,11 +28,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-
-        view = findViewById(R.id.custom_view);
+        view = (Canvas_View) findViewById(R.id.custom_view);
         sm = (SensorManager) getSystemService(SENSOR_SERVICE);
         sm.registerListener(this, sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
         lastupdate = System.currentTimeMillis();
+
     }
 
     @Override
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if(event.sensor.getType()== Sensor.TYPE_ACCELEROMETER){
            // Toast.makeText(this, "Shake Me !!!",Toast.LENGTH_SHORT).show();
             shake(event);
+
         }
 
     }
@@ -61,7 +62,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 return;
             }
             lastupdate = actualTime;
-            Toast.makeText(this , "Shake me !!!!",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MySound.class);
+            startService(intent);
+            view.onClear();
+            stopService(intent);
         }
 
     }
