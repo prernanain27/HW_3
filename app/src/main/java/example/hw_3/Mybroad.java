@@ -27,6 +27,7 @@ public class Mybroad extends BroadcastReceiver{
                     new Intent(context, MainActivity.class), 0);
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+                    .setContentIntent(contentIntent)
                     .setSmallIcon(android.R.drawable.stat_notify_error)
                     .setContentTitle("Notify user")
                     .setContentText("Do you want to Draw");

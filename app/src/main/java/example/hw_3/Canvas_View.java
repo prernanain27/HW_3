@@ -45,7 +45,7 @@ public class Canvas_View extends View {
     }
 
     public void init(AttributeSet attrs, int defstyle){
-        paint.setColor(Color.RED);
+        paint.setColor(Color.BLUE);
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
     }
@@ -129,6 +129,7 @@ public class Canvas_View extends View {
 
     public void onClear(){
         path.reset();
+        eventList.clear();
         invalidate();
 
     }
